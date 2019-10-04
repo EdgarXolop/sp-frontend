@@ -7,7 +7,7 @@
       </div>
 
       <div class="content">
-        <form @submit.stop.prevent="login">
+        <form @submit.stop.prevent="submitForm">
 
           <input id="email" type="email" name="email" title="email" placeholder="Correo" required autofocus v-model="email">
           <input id="password" type="password" name="password" title="password" placeholder="Contraseña" required v-model="password">
@@ -30,27 +30,47 @@
 </template>
 
 <script>
+import cookies from 'js-cookie'
 
-import querystring from 'querystring'
+import {
+  mapActions
+} from 'vuex'
 
-  export default {
-    name: 'home',
-    data: () => ({
-      email: "",
-      password: ""
-    }),
-    methods: {
-      login(){
-        this.axios.post(
-          "http://localhost:8082/api/auth/login",
-          {
-            "email" : this.email,
-            "password" : this.password
-          }
-        )
-      }
+import {
+  login,
+  getUserInfo
+} from '../../../api/index'
+
+export default {
+  name: 'home',
+  data: () => ({
+    email: "",
+    password: ""
+  }),
+  methods: {
+    ...mapActions(
+      [
+        "setUser"
+      ]
+    ),
+    submitForm() {
+
+      login(this.email, this.password)
+        .then(response => {
+
+          cookies.set("access_token", response.data.access_token)
+          cookies.set("refresh_token", response.data.refresh_token)
+
+          getUserInfo()
+            .then(response => {
+              this.setUser(response.data)
+            })
+
+        })
+
     }
   }
+}
 </script>
 
 <style lang="scss" scoped >

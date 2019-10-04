@@ -1,9 +1,7 @@
-export default {
-    SET_CREDENTIALS(state, payload) {
+import { SET_USER } from './mutationns_name'
 
-        state.credentials = payload.credentials
-    },
-    SET_USER(state, payload) {
+export default {
+    [SET_USER] (state, payload) {
 
         state.user = payload.user
     }
