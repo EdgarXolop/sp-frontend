@@ -8,27 +8,9 @@ export const login = (email, password) =>
         }
     )
 
-export const register = ({
-        user_name,
-        email,
-        first_name,
-        last_name,
-        date_of_birth,
-        phone_number,
-        password,
-        password_confirm
-    }) =>
+export const register = (data) =>
     window.api.post(
-        "/auth/register", {
-            user_name,
-            email,
-            first_name,
-            last_name,
-            date_of_birth,
-            phone_number,
-            password,
-            password_confirm
-        }
+        "/auth/register", data
     )
 
 export const getUserInfo = () => {
@@ -39,6 +21,23 @@ export const getUserInfo = () => {
 
     return window.api.get(
         "/user/profile", {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        }
+    )
+}
+
+export const updateUserInfo = (data) => {
+
+    let access_token = cookies.get("access_token")
+
+    if (typeof access_token !== "string") return Promise.reject("no access token available")
+
+    return window.api.put(
+        "/user/profile", 
+        data,
+        {
             headers: {
                 Authorization: `Bearer ${access_token}`
             }

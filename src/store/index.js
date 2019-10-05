@@ -11,5 +11,10 @@ export default new Vuex.Store({
     user: null
   },
   mutations,
-  actions
+  actions,
+  getters: {
+    user: state => {
+      return state.user
+    }
+  }
 })

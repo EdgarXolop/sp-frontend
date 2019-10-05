@@ -1,14 +1,14 @@
 <template>
     <div class="navbar-end nav-menu">
-        <a class="navbar-item is-tab is-hidden-tablet">
+        <router-link to="/" class="navbar-item is-tab is-hidden-tablet">
             <span class="icon">
                 <font-awesome-icon icon="home" /></span> Home
-        </a>
+        </router-link>
 
-        <a class="navbar-item is-tab">
+        <router-link to="/my-account" class="navbar-item is-tab is-hidden-tablet">
             <span class="icon">
                 <font-awesome-icon icon="user" /></span>
-        </a>
+        </router-link>
         <a class="navbar-item is-tab" @click="signOut">
             <span class="icon">
                 <font-awesome-icon icon="sign-out-alt" /></span>

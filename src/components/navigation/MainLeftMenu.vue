@@ -4,11 +4,18 @@
         <aside class="menu menu-fixed">
             <ul class="menu-list">
                 <li>
-                    <a href="#" class="">
+                    <router-link to="/" >
                         <span class="icon">
                             <font-awesome-icon icon="home" />
-                        </span> Home
-                    </a>
+                        </span> Inicio
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/my-account" >
+                        <span class="icon">
+                            <font-awesome-icon icon="user" />
+                        </span> Mi cuenta
+                    </router-link>
                 </li>
             </ul>
         </aside>
