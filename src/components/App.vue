@@ -6,28 +6,8 @@
 
 import 'bulma'
 
-import { mapActions } from 'vuex'
-import { getUserInfo } from '../api'
-
 export default {
   name: "App",
-  methods:{
-    ...mapActions(
-      [
-        "setUser"
-      ]
-    ),
-  },
-  beforeCreate(){
-
-      getUserInfo()
-        .then(response => {
-          this.setUser(response.data)
-        })
-      .then(error=>{
-        console.log(error)
-      })
-  }
 }
 </script>
 

@@ -26,7 +26,7 @@
 import cookies from 'js-cookie'
 
 import {
-  mapActions
+  mapActions,
 } from 'vuex'
 
 import {
@@ -44,28 +44,22 @@ export default {
   methods: {
     ...mapActions(
       [
-        "setUser"
+        "loginUser"
       ]
     ),
     submitForm() {
 
-      login(this.email, this.password)
-        .then(response => {
-
-          cookies.set("access_token", response.data.access_token)
-          cookies.set("refresh_token", response.data.refresh_token)
-
-          getUserInfo()
-            .then(response => {
-              this.setUser(response.data)
-              this.$router.push('/')
-            })
-
+      this.loginUser({
+          email: this.email,
+          password: this.password
         })
         .catch(error => {
-          
-          if(error.response && error.response.data && error.response.data.error_description){
-            this.error_message = error.response.data.error_description
+
+          if (error.response && error.response.data && error.response.data.error_description) {
+            this.error_message = error.response.data.error_description;
+          }
+          if (error.response && error.response.data && error.response.data.errors) {
+            this.error_message = error.response.data.errors.join(", ");
           }
         })
 

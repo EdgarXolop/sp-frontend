@@ -1,12 +1,50 @@
-import { SET_USER } from './mutationns_name'
+import {
+  SET_USER
+} from './mutationns_name'
+import cookies from 'js-cookie'
+import {
+  login,
+  register,
+  getUserInfo,
+  getPosts
+} from "../api"
 
 export default {
-    setUser({
-        commit
-    }, user) {
-        
+  loginUser(_, {
+    email,
+    password
+  }) {
+
+    return login(email, password)
+      .then(response => {
+
+        cookies.set("access_token", response.data.access_token)
+        cookies.set("refresh_token", response.data.refresh_token)
+
+        window.location.reload();
+
+      })
+  },
+  registerUser({
+    dispatch
+  }, data) {
+
+    return register(data)
+      .then(() => {
+        dispatch("loginUser", data)
+      })
+  },
+  loadUserInfo({
+    commit
+  }) {
+    return getUserInfo()
+      .then(response => {
+
         commit(SET_USER, {
-            user
+          user: response.data
         })
-    }
+      })
+
+  }
+
 }

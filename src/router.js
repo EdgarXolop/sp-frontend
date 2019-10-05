@@ -4,6 +4,7 @@ import cookies from 'js-cookie'
 
 import Authentication from './components/views/auth/Authentication'
 import MyAccount from './components/views/user/UserDetails'
+import Info from './components/views/info/Info'
 import Home from './components/views/Home'
 
 Vue.use(Router)
@@ -26,6 +27,15 @@ const router = new Router({
       path: '/my-account',
       name: 'my-account',
       component: MyAccount
+    },
+    {
+      path: '/info',
+      name: 'info',
+      component: Info
+    },,
+    {
+      path: "*",
+      redirect: "/"
     }
   ]
 })
@@ -40,7 +50,7 @@ router.beforeEach((to, from, next) => {
   }
   if (to.fullPath === '/authentication') {
     if (access_token) {
-      next('/home');
+      next('/');
     }
   }
   next();

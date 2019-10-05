@@ -17,6 +17,13 @@
                         </span> Mi cuenta
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/info" >
+                        <span class="icon">
+                            <font-awesome-icon icon="info" />
+                        </span>Información
+                    </router-link>
+                </li>
             </ul>
         </aside>
     </div>

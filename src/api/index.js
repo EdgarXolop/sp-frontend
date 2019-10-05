@@ -44,3 +44,18 @@ export const updateUserInfo = (data) => {
         }
     )
 }
+
+export const getPosts = () => {
+
+    let access_token = cookies.get("access_token")
+
+    if (typeof access_token !== "string") return Promise.reject("no access token available")
+
+    return window.api.get(
+        "/post", {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        }
+    )
+}

@@ -31,12 +31,6 @@ import {
   mapActions
 } from 'vuex'
 
-import {
-  register,
-  login,
-  getUserInfo
-} from '../../../api/index'
-
 export default {
   name: 'Login',
   data: () => ({
@@ -52,11 +46,11 @@ export default {
   methods: {
     ...mapActions(
       [
-        "setUser"
+        "registerUser"
       ]
     ),
     submitForm() {
-      register({
+      this.registerUser({
           user_name:this.user_name,
           email:this.email,
           first_name:this.first_name,
@@ -66,31 +60,12 @@ export default {
           password:this.password,
           password_confirm:this.password_confirm
         })
-        .then(() => {
-          this.signin()
-        })
         .catch(error => {
           if(error.response && error.response.data && error.response.data.message){
             this.error_message = error.response.data.message
           }
         })
     },
-    signin() {
-
-      login(this.email, this.password)
-        .then(response => {
-
-          cookies.set("access_token", response.data.access_token)
-          cookies.set("refresh_token", response.data.refresh_token)
-
-          getUserInfo()
-            .then(response => {
-              this.setUser(response.data)
-              this.$router.push('/')
-            })
-
-        })
-    }
   }
 }
 </script>
