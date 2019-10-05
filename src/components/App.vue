@@ -5,7 +5,6 @@
 <script>
 
 import 'bulma'
-import "buefy";
 
 export default {
   name: "App"
