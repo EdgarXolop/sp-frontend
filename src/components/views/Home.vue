@@ -1,121 +1,19 @@
 <template>
 
-  <div id="app">
+  <div id="app" class="is-fullheight">
 
-    <nav class="navbar is-white has-shadow is-fixed-top">
-      <div class="container">
-        <a role="button" :class="['navbar-burger',{'is-active':showMenu}]" data-target="navMenu" aria-label="menu"
-          aria-expanded="false" @click="toggleNavbarBurger">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div :class="['navbar-menu',{'is-active':showMenu}]">
-          <div class="navbar-start">
-            <a class="navbar-item">
-              Red Social
-            </a>
-          </div>
-          <div class="navbar-end nav-menu">
-            <a class="navbar-item is-tab is-hidden-tablet">
-              <span class="icon">
-                <font-awesome-icon icon="home" /></span> Home
-            </a>
-
-            <a class="navbar-item is-tab">
-              <span class="icon">
-                <font-awesome-icon icon="user" /></span>
-            </a>
-            <a class="navbar-item is-tab">
-              <span class="icon">
-                <font-awesome-icon icon="sign-out-alt" /></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <navbar />
 
     <div class="container">
 
 
-      <section class="main-content columns is-fullheight">
+      <section class="main-content columns">
 
-        <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
-          <ul class="menu-list">
-            <li>
-              <a href="#" class="">
-                <span class="icon">
-                  <font-awesome-icon icon="home" /></span> Home
-              </a>
-            </li>
-          </ul>
-        </aside>
+        <main-left-menu />
 
-        <div class="container column is-10">
-          <div class="section">
+        <post-list />
 
-            <div class="card">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-            <div class="card is-hidden1">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-            <div class="card is-hidden1">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-            <div class="card is-hidden1">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-            <div class="card is-hidden1">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-            <div class="card is-hidden1">
-              <div class="card-header">
-                <p class="card-header-title">Header</p>
-              </div>
-              <div class="card-content">
-                <div class="content">Content</div>
-              </div>
-            </div>
-            <br />
-
-          </div>
-        </div>
+        <chat-list/>
 
       </section>
     </div>
@@ -124,15 +22,20 @@
 </template>
 
 <script>
+
+  import MainLeftMenu from "@/components/navigation/MainLeftMenu"
+  import Navbar from "@/components/navigation/Navbar"
+  import ChatList from "@/components/chat/ChatList"
+  import PostList from "@/components/post/PostList"
+
+
   export default {
     name: 'home',
-    data: () => ({
-      showMenu: false
-    }),
-    methods: {
-      toggleNavbarBurger() {
-        this.showMenu = !this.showMenu
-      }
+    components:{
+      "main-left-menu" : MainLeftMenu,
+      "chat-list" : ChatList,
+      "post-list" : PostList,
+      "navbar" : Navbar
     }
   }
 </script>
@@ -153,7 +56,7 @@
 
   .main-content {
     //flex: 1;
-    margin-top: 60px
+    padding-top: 65px
   }
 
   .footer {
@@ -164,5 +67,10 @@
     #menu-toggle:checked+.nav-menu {
       display: block;
     }
+  }
+
+  .is-vertical-center {
+    display: flex;
+    align-items: center;
   }
 </style>

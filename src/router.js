@@ -27,7 +27,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const access_token = cookies.get("access_token")
 
-  if (to.fullPath === '/home') {
+  if (to.fullPath === '/') {
     if (!access_token) {
       next('/login');
     }

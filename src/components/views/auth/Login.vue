@@ -64,7 +64,7 @@ export default {
           getUserInfo()
             .then(response => {
               this.setUser(response.data)
-              this.$router.push('home')
+              this.$router.push('/')
             })
 
         })

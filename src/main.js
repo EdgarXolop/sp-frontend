@@ -6,10 +6,10 @@ import router from './router'
 import store from './store'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser,faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faSignOutAlt,faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUser,faSignOutAlt)
+library.add(faUser,faSignOutAlt,faHome)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
