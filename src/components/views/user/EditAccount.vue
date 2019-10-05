@@ -42,11 +42,6 @@ import {
   mapState
 } from 'vuex'
 
-import {
-  updateUserInfo,
-  login
-} from '../../../api/index'
-
 export default {
   name: 'EditAccount',
   data: () => ({
@@ -63,17 +58,18 @@ export default {
   watch: {
     user(newValue, oldValue){
 
-      this.loadUSerInfo(newValue)
+      this.mapUserInfo(newValue)
     }
   },
   methods: {
     ...mapActions(
       [
-        "setUser"
+        "changeUserInfo",
+        "loadUserInfo"
       ]
     ),
     submitForm() {
-      updateUserInfo({
+      this.changeUserInfo({
           user_name:this.user_name,
           email:this.email,
           first_name:this.first_name,
@@ -92,23 +88,7 @@ export default {
           }
         })
     },
-    signin() {
-
-      login(this.email, this.password)
-        .then(response => {
-
-          cookies.set("access_token", response.data.access_token)
-          cookies.set("refresh_token", response.data.refresh_token)
-
-          getUserInfo()
-            .then(response => {
-              this.setUser(response.data)
-              this.$router.push('/')
-            })
-
-        })
-    },
-    loadUSerInfo(data){
+    mapUserInfo(data){
 
       if(!data) return null
       
@@ -122,7 +102,7 @@ export default {
     }
   },
   mounted(){
-    this.loadUSerInfo(this.user)
+    this.loadUserInfo()
   }
 }
 </script>

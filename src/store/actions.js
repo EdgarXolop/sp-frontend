@@ -5,8 +5,9 @@ import cookies from 'js-cookie'
 import {
   login,
   register,
+  updateUserInfo,
   getUserInfo,
-  getPosts
+  getPosts,
 } from "../api"
 
 export default {
@@ -32,6 +33,15 @@ export default {
     return register(data)
       .then(() => {
         dispatch("loginUser", data)
+      })
+  },
+  changeUserInfo({
+    dispatch
+  }, data) {
+
+    return updateUserInfo(data)
+      .then(() => {
+        dispatch("loadUserInfo")
       })
   },
   loadUserInfo({
