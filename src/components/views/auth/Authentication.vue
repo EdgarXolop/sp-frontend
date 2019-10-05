@@ -1,28 +1,40 @@
 <template>
-  <form @submit.stop.prevent="submitForm">
+  <div id="login">
+    <div class="login-card">
 
-    <input id="email" type="email" name="email" title="email" placeholder="Correo" required autofocus
-      v-model="email">
-    <input id="password" type="password" name="password" title="password" placeholder="Contraseña" required
-      v-model="password">
-
-    <!--div class="level options">
-      <div class="checkbox level-left">
-        <input type="checkbox" id="checkbox" class="regular-checkbox">
-        <label for="checkbox"></label>
-        <span>Remember me</span>
+      <div class="card-title">
+        <h1>Red Social</h1>
       </div>
 
-      <a class="btn btn-link level-right" href="#">Forgot Password?</a>
-    </div-->
-    <p class="help is-danger">{{error_message}}</p>
+      <div class="content">
+        
+        <login-form v-if="login" />
+        <register-form v-else />
 
-    <button type="submit" class="btn btn-primary">Ingresar</button>
-
-  </form>
+      </div>
+      <div class="tabs is-toggle is-fullwidth is-large">
+        <ul>
+          <li :class="{'is-active':login}">
+            <a @click="toggleForm">
+              <span>Login</span>
+            </a>
+          </li>
+          <li :class="{'is-active':!login}">
+            <a @click="toggleForm">
+              <span>Registrar</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+
+import Login from '@/components/views/auth/Login'
+import Register from '@/components/views/auth/Register'
+
 import cookies from 'js-cookie'
 
 import {
@@ -35,11 +47,11 @@ import {
 } from '../../../api/index'
 
 export default {
-  name: 'Login',
+  name: 'Authentication',
   data: () => ({
     email: "",
     password: "",
-    error_message: ""
+    login: true
   }),
   methods: {
     ...mapActions(
@@ -47,6 +59,9 @@ export default {
         "setUser"
       ]
     ),
+    toggleForm(){
+      this.login = !this.login
+    },
     submitForm() {
 
       login(this.email, this.password)
@@ -62,18 +77,15 @@ export default {
             })
 
         })
-        .catch(error => {
-          
-          if(error.response && error.response.data && error.response.data.error_description){
-            this.error_message = error.response.data.error_description
-          }
-        })
 
     }
+  },
+  components:{
+    "login-form" : Login,
+    "register-form" : Register
   }
 }
 </script>
-
 
 <style lang="scss" scoped >
   $primary: hsl(171, 100%, 41%);
@@ -111,7 +123,8 @@ export default {
         padding: 3rem 2.5rem 5rem;
       }
 
-      input {
+      #email,
+      #password {
         display: block;
         width: 100%;
         font-size: 1rem;

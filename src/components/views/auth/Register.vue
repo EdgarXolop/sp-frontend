@@ -1,10 +1,12 @@
 <template>
   <form @submit.stop.prevent="submitForm">
 
-    <input id="email" type="email" name="email" title="email" placeholder="Correo" required autofocus
-      v-model="email">
-    <input id="password" type="password" name="password" title="password" placeholder="Contraseña" required
-      v-model="password">
+    <input class="auth-input" type="text" name="first_name" title="nombre" placeholder="Nombre" required autofocus v-model="first_name">
+    <input class="auth-input" type="text" name="last_name" title="apellido" placeholder="Apellido" required v-model="last_name">
+    <input class="auth-input" type="email" name="email" title="email" placeholder="Correo" required v-model="email">
+    <input class="auth-input" type="text" name="user_name" title="user_name" placeholder="Nombre de usuario" required v-model="user_name">
+    <input class="auth-input" type="password" name="password" title="password" placeholder="Contraseña" required v-model="password">
+    <input class="auth-input" type="password" name="confirm_password" title="confirm_password" placeholder="Confirmar Contraseña" required v-model="password_confirm">
 
     <!--div class="level options">
       <div class="checkbox level-left">
@@ -17,7 +19,7 @@
     </div-->
     <p class="help is-danger">{{error_message}}</p>
 
-    <button type="submit" class="btn btn-primary">Ingresar</button>
+    <button type="submit" class="btn btn-primary">Registrar</button>
 
   </form>
 </template>
@@ -30,6 +32,7 @@ import {
 } from 'vuex'
 
 import {
+  register,
   login,
   getUserInfo
 } from '../../../api/index'
@@ -37,8 +40,13 @@ import {
 export default {
   name: 'Login',
   data: () => ({
+    user_name: "",
     email: "",
+    first_name: "",
+    last_name: "",
     password: "",
+    password_confirm: "",
+    date_of_birth: null,
     error_message: ""
   }),
   methods: {
@@ -48,6 +56,26 @@ export default {
       ]
     ),
     submitForm() {
+      register({
+          user_name:this.user_name,
+          email:this.email,
+          first_name:this.first_name,
+          last_name:this.last_name,
+          date_of_birth:this.date_of_birth,
+          phone_number:this.phone_number,
+          password:this.password,
+          password_confirm:this.password_confirm
+        })
+        .then(() => {
+          this.signin()
+        })
+        .catch(error => {
+          if(error.response && error.response.data && error.response.data.message){
+            this.error_message = error.response.data.message
+          }
+        })
+    },
+    signin() {
 
       login(this.email, this.password)
         .then(response => {
@@ -62,13 +90,6 @@ export default {
             })
 
         })
-        .catch(error => {
-          
-          if(error.response && error.response.data && error.response.data.error_description){
-            this.error_message = error.response.data.error_description
-          }
-        })
-
     }
   }
 }
@@ -111,7 +132,7 @@ export default {
         padding: 3rem 2.5rem 5rem;
       }
 
-      input {
+      .auth-input {
         display: block;
         width: 100%;
         font-size: 1rem;

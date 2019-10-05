@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import cookies from 'js-cookie'
 
-import Login from './components/views/auth/Login'
+import Authentication from './components/views/auth/Authentication'
 import Home from './components/views/Home'
 
 Vue.use(Router)
@@ -12,9 +12,9 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: Login
+      path: '/authentication',
+      name: 'authentication',
+      component: Authentication
     },
     {
       path: '/',
@@ -29,10 +29,10 @@ router.beforeEach((to, from, next) => {
 
   if (to.fullPath === '/') {
     if (!access_token) {
-      next('/login');
+      next('/authentication');
     }
   }
-  if (to.fullPath === '/login') {
+  if (to.fullPath === '/authentication') {
     if (access_token) {
       next('/home');
     }

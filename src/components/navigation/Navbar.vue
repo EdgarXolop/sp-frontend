@@ -1,7 +1,7 @@
 <template>
   
 
-    <nav class="navbar is-white has-shadow is-fixed-top ">
+    <nav class="navbar is-primary has-shadow is-fixed-top ">
       <div class="container">
         <a role="button" :class="['navbar-burger',{'is-active':showMenu}]" data-target="navMenu" aria-label="menu"
           aria-expanded="false" @click="toggleNavbarBurger">

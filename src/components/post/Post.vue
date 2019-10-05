@@ -22,7 +22,7 @@
                             alt="Placeholder image">
                     </figure>
                 </div>
-                <div class="media-content ">
+                <div class="media-content post-author-name">
                     <p class="subtitle is-6">John Smith</p>
                 </div>
             </div>
@@ -46,6 +46,10 @@ export default {
 .post{
     border-radius: 6px;
     margin: 10px;
+}
+
+.post-author-name{
+  margin-top: 5px
 }
 
 </style>

@@ -1,8 +1,6 @@
 <template>
-    <div class="container column box is-radiusless">
-        <div class="section">
-            <post v-for="(p,i) in chats" :key="i" />
-        </div>
+    <div class="container-fluid column box is-radiusless">
+        <post v-for="(p,i) in chats" :key="i" />
     </div>
 
 </template>
